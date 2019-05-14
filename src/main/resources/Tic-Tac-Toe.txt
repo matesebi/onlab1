@@ -1,0 +1,41 @@
+TicTacToe:
+
+/*
+f1 f2 f3
+f4 f5 f6
+f7 f8 f9
+*/
+
+Board:
+The board has 9 fields: f1, f2, f3, f4, f5, f6, f7, f8, f9.
+
+Phases:
+The game has 1 phase: mainPhase.
+mainPhase has 1 round: mainRound.
+
+Rounds:
+In mainRound players have a placeTokenTurn in round-robin.
+
+Turns:
+In placeTokenTurn a player makes 1 placeTokenMove move.
+
+Moves:
+placeTokenMove:
+action: place token on empty field.
+after: check win conditions.
+
+Win conditions:
+Draw: no empty field.
+Win: same token on: f1, f2, f3.
+Win: same token on: f4, f5, f6.
+Win: same token on: f8, f9, f9.
+Win: same token on: f1, f4, f7.
+Win: same token on: f2, f5, f8.
+Win: same token on: f3, f6, f9.
+Win: same token on: f1, f5, f9.
+Win: same token on: f7, f5, f3.
+
+Players:
+The game is played by 2 players: X, O.
+X has 5 x Xtoken.
+O has 5 x Otoken.
