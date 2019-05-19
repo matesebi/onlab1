@@ -7,7 +7,7 @@ boardGame
 ;
 
 gameName
-: identifier COLON
+: identifier+ COLON
 ;
 
 board

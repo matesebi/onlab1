@@ -1,9 +1,8 @@
-package com.example.onlab1.boardgame;
+package com.example.onlab1.boardgame.model;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.antlr.v4.runtime.Token;
 
 import java.util.Map;
 

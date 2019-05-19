@@ -1,4 +1,4 @@
-package com.example.onlab1.boardgame;
+package com.example.onlab1.boardgame.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +17,7 @@ public class Game {
     private String name;
     private Board board;
     private Map<String, Phase> phases;
-    private Map<String, Player> players;
+    private List<String> phaseOrder;
+    private Map<String, PlayerData> players;
     private List<WinCondition> winConditions;
 }

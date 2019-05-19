@@ -1,4 +1,4 @@
-package com.example.onlab1.boardgame;
+package com.example.onlab1.boardgame.model;
 
 import lombok.Getter;
 import lombok.Setter;

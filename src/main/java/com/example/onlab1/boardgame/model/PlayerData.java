@@ -1,21 +1,22 @@
-package com.example.onlab1.boardgame;
+package com.example.onlab1.boardgame.model;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
 @ToString
-public class Turn {
+public class PlayerData {
 
     private String name;
 
-    private List<TurnMove> moves;
+    private Map<String, List<Token>> tokens;
 
-    public Turn(String name) {
+    public PlayerData(String name) {
         this.name = name;
     }
 }

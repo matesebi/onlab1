@@ -1,21 +1,17 @@
-package com.example.onlab1.boardgame;
+package com.example.onlab1.boardgame.model;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Map;
-
 @Getter
 @Setter
 @ToString
-public class Phase {
+public class Token {
 
     private String name;
 
-    private Map<String, Round> rounds;
-
-    public Phase(String name) {
+    public Token(String name) {
         this.name = name;
     }
 }

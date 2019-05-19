@@ -1,10 +1,14 @@
 package com.example.onlab1.visitor;
 
-import com.example.onlab1.boardgame.*;
+import com.example.onlab1.boardgame.model.*;
 import com.example.onlab1.grammar.BoardGame;
 import com.example.onlab1.grammar.BoardGameBaseVisitor;
+import org.antlr.v4.runtime.RuleContext;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -30,7 +34,8 @@ public class BoardGameVisitor extends BoardGameBaseVisitor<Game> {
 
     @Override
     public Game visitGameName(BoardGame.GameNameContext ctx) {
-        game.setName(ctx.identifier().getText());
+        String name = ctx.identifier().stream().map(RuleContext::getText).collect(Collectors.joining(" "));
+        game.setName(name);
 
         return game;
     }
@@ -50,7 +55,13 @@ public class BoardGameVisitor extends BoardGameBaseVisitor<Game> {
     public Game visitPhases(BoardGame.PhasesContext ctx) {
 
         ctx.phasesDefinition().accept(this);
-        ctx.phase().forEach(phase -> phase.accept(this));
+        game.setPhaseOrder(new ArrayList<>());
+        ctx.phase().forEach(
+                phase -> {
+                    game.getPhaseOrder().add(phase.identifier().getText());
+                    phase.accept(this);
+                }
+        );
         return game;
     }
 
@@ -141,10 +152,15 @@ public class BoardGameVisitor extends BoardGameBaseVisitor<Game> {
         Phase phase = game.getPhases().get(phaseName);
 
         HashMap<String, Round> rounds = new HashMap<>();
+        List<String> roundOrder = new ArrayList<>();
 
         ctx.idList().identifier().forEach(
-                id -> rounds.put(id.getText(), new Round(id.getText()))
+                id -> {
+                    roundOrder.add(id.getText());
+                    rounds.put(id.getText(), new Round(id.getText()));
+                }
         );
+        phase.setRoundOrder(roundOrder);
         phase.setRounds(rounds);
 
         return game;
@@ -227,9 +243,9 @@ public class BoardGameVisitor extends BoardGameBaseVisitor<Game> {
 
     @Override
     public Game visitPlayersDefinition(BoardGame.PlayersDefinitionContext ctx) {
-        Map<String, Player> players = new HashMap<>();
+        Map<String, PlayerData> players = new HashMap<>();
 
-        ctx.idList().identifier().forEach(id -> players.put(id.getText(), new Player(id.getText())));
+        ctx.idList().identifier().forEach(id -> players.put(id.getText(), new PlayerData(id.getText())));
 
         game.setPlayers(players);
         return game;
@@ -237,8 +253,8 @@ public class BoardGameVisitor extends BoardGameBaseVisitor<Game> {
 
     @Override
     public Game visitPlayer(BoardGame.PlayerContext ctx) {
-        String playerName =ctx.identifier().getText();
-        Player player = game.getPlayers().get(playerName);
+        String playerName = ctx.identifier().getText();
+        PlayerData playerData = game.getPlayers().get(playerName);
 
         Map<String, List<Token>> tokens = new HashMap<>();
 
@@ -251,7 +267,7 @@ public class BoardGameVisitor extends BoardGameBaseVisitor<Game> {
                 }
         );
 
-        player.setTokens(tokens);
+        playerData.setTokens(tokens);
 
         return game;
     }

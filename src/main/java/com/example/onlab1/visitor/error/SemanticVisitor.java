@@ -23,9 +23,9 @@ public class SemanticVisitor extends BoardGameBaseVisitor<Void> {
     @Override
     public Void visitBoardGame(BoardGame.BoardGameContext ctx) {
 
-        if (ctx.gameName().identifier().getText().equals("")) {
-            throw new RuntimeException("Game name not defined");
-        }
+//        if (ctx.gameName().identifier().getText().equals("")) {
+//            throw new RuntimeException("Game name not defined");
+//        }
 
 //        ctx.boardSpec().accept(this);
 //        ctx.phasesSpec().accept(this);
